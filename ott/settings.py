@@ -69,7 +69,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "*"
+    "http://localhost:3000",
+    "https://ott-platform-frontend-vercel-2-git-main-vyshhh1.vercel.app",
 ]
 
 ROOT_URLCONF = 'ott.urls'
