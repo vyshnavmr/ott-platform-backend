@@ -96,13 +96,13 @@ WSGI_APPLICATION = 'ott.wsgi.application'
 import os
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ott_db',      # Your database name
-        'USER': 'root',        # Default Laragon username
-        'PASSWORD': '',        # Default Laragon password (empty)
-        'HOST': '127.0.0.1',   # or 'localhost'
-        'PORT': '3306',        # Default MySQL port
+    "default": {
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD": os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
+        "PORT": os.getenv("DB_PORT", "3306"),
     }
 }
 
