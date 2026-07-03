@@ -30,7 +30,9 @@ SECRET_KEY = 'django-insecure-bmm2q7s%#@d6tl6fc-u5lixrns(^&q95!m6v=#tb^qw9*kfun)
 DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://ott-platform-backend-production.up.railway.app",
+]
 
 # Application definition
 
@@ -68,7 +70,9 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "ott-platform-frontend-vercel-2.vercel.app",
 ]
+
 ROOT_URLCONF = 'ott.urls'
 
 TEMPLATES = [
