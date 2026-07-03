@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+
+    <!-- Bootstrap CSS -->
+    <link 
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link 
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    >
+
+    <style>
+
+        body{
+            background:#f4f6f9;
+            font-family:Arial, sans-serif;
+        }
+
+        .page-title{
+            color:#0d6efd;
+            font-weight:bold;
+        }
+
+        .table-card{
+            border:none;
+            border-radius:20px;
+            overflow:hidden;
+            box-shadow:0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .table-card .card-body{
+            padding:0;
+        }
+
+        .table{
+            margin-bottom:0;
+        }
+
+        .table thead th{
+            background:#0d6efd !important;
+            color:white !important;
+            border:none;
+            padding:16px;
+        }
+
+        .table tbody td{
+            padding:16px;
+        }
+
+        .empty-box{
+            text-align:center;
+            padding:50px;
+            color:gray;
+        }
+
+        .empty-box i{
+            font-size:60px;
+            margin-bottom:15px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+    <div class="container mt-5">
+
+        <!-- TITLE -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+            <h2 class="page-title">
+                <i class="bi bi-people-fill"></i>
+                User List
+            </h2>
+
+            <a href="{% url 'home' %}" class="btn btn-primary">
+                Back
+            </a>
+
+        </div>
+
+        <!-- TABLE CARD -->
+        <div class="card table-card">
+
+            <div class="card-body  p-0">
+
+                {% if users %}
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover align-middle">
+
+                            <thead>
+
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Last Login</th>
+                                    <th>Is Active</th>
+                                    <th>Actions</th>
+                                    <th>History</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                {% for user in users %}
+
+                                    <tr>
+
+                                        <td>{{ user.id }}</td>
+
+                                        <td>{{ user.name }}</td>
+
+                                        <td>{{ user.email }}</td>
+
+                                        <td>{{ user.last_login }}</td>
+                                        
+                                        <td>
+                                            {% if user.is_active %}
+                                            Yes
+                                            {% else %}
+                                            No
+                                            {% endif %}
+                                        </td>
+                                        
+                                        <td>
+                                            {% if user.is_active %}
+                                            
+                                                <a href="{% url 'blockuser' user.id %}"
+                                                class="btn btn-danger btn-sm"
+                                                onclick="return confirm('Block this user?')">
+                                                    Block
+                                                </a>
+                                                
+                                                {% else %}
+                                                
+                                                <a href="{% url 'unblockuser' user.id %}"
+                                                class="btn btn-primary btn-sm"
+                                                onclick="return confirm('Unblock this user?')">
+                                                    Unblock
+                                                </a>
+
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            <a href="{% url 'user_history' user.id %}"
+                                            class="btn btn-info btn-sm">
+                                            View History
+                                            </a>
+                                        </td>
+                                        
+                                    </tr>
+
+                                {% endfor %}
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                {% else %}
+
+                    <!-- EMPTY MESSAGE -->
+
+                    <div class="empty-box">
+
+                        <i class="bi bi-person-x"></i>
+
+                        <h4>No Users Found</h4>
+
+                        <p>
+                            No users have signed up yet.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script 
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    </script>
+
+</body>
+</html>

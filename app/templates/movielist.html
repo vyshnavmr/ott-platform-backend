@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie List</title>
+
+<style>
+
+    body{
+        font-family: Arial, sans-serif;
+        background:#f4f6f9;
+        margin:0;
+        padding:30px;
+    }
+
+    .container{
+        max-width:1200px;
+        margin:auto;
+    }
+
+    .header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:25px;
+    }
+
+    .title{
+        color:#0d6efd;
+        font-size:32px;
+        font-weight:bold;
+    }
+
+    .table-card{
+        background:white;
+        border-radius:15px;
+        overflow:hidden;
+        box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    table{
+        width:100%;
+        border-collapse:collapse;
+    }
+
+    thead{
+        background:#0d6efd;
+        color:white;
+    }
+
+    th, td{
+        padding:15px;
+        text-align:left;
+    }
+
+    tbody tr{
+        border-bottom:1px solid #eee;
+    }
+
+    tbody tr:hover{
+        background:#f8f9fa;
+    }
+
+    .thumb{
+        width:100px;
+        height:70px;
+        object-fit:cover;
+        border-radius:8px;
+    }
+
+    .edit-btn{
+        text-decoration:none;
+        background:#dc3545;
+        color:white;
+        padding:8px 15px;
+        border-radius:6px;
+        font-weight:bold;
+    }
+
+    .edit-btn:hover{
+        background:red;
+        /* color: rgb(255, 34, 34); */
+    }
+
+    .back-btn{
+    text-decoration:none;
+    background:#0d6efd;
+    color:white;
+    padding:10px 20px;
+    border-radius:8px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.back-btn:hover{
+    background:#0b5ed7;
+    color:white;
+}
+
+    .empty{
+        text-align:center;
+        padding:50px;
+        color:gray;
+    }
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<div class="header">
+
+    <h1 class="title">Movie List</h1>
+
+    <a href="{% url 'home' %}" class="back-btn">
+        Back
+    </a>
+
+</div>
+
+<div class="table-card">
+
+    {% if movies %}
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Thumbnail</th>
+                <th>Movie Name</th>
+                <th>Description</th>
+                <th>Views</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for movie in movies %}
+
+            <tr>
+
+                <td>{{ movie.id }}</td>
+
+                <td>
+                    <img src="{{ movie.thumbnail.url }}"
+                         class="thumb"
+                         alt="{{ movie.name }}">
+                </td>
+
+                <td>{{ movie.name }}</td>
+
+                <td>{{ movie.description }}</td>
+
+                <td>{{ movie.views }}</td>
+
+                <td>
+                    <a href="{% url 'editmovie' movie.id %}"
+                       class="edit-btn">
+                        Edit
+                    </a>
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+    {% else %}
+
+    <div class="empty">
+        <h3>No Movies Available</h3>
+    </div>
+
+    {% endif %}
+
+</div>
+
+</div>
+
+</body>
+</html>

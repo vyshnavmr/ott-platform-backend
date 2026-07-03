@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Reports</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+    body{
+        background:#f4f6f9;
+        font-family:Arial, sans-serif;
+    }
+
+    .container{
+        margin-top:40px;
+    }
+
+    .header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:25px;
+    }
+
+    .title{
+        color:#0d6efd;
+        font-weight:bold;
+    }
+
+    .report-card{
+        background:white;
+        border-radius:15px;
+        overflow:hidden;
+        box-shadow:0 5px 20px rgba(0,0,0,0.1);
+    }
+
+    .thumb{
+        width:120px;
+        height:80px;
+        object-fit:cover;
+        border-radius:8px;
+    }
+
+    .sort-box{
+        margin-bottom:20px;
+    }
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2 class="title">
+            Movie View Report
+        </h2>
+        <a href="{% url 'home' %}" class="btn btn-primary">
+            Back
+        </a>
+    </div>
+
+    <div class="sort-box">
+        <form method="GET">
+            <div class="row">
+                <div class="col-md-4">
+                    <select
+                        name="sort"
+                        class="form-select"
+                        onchange="this.form.submit()">
+                        <option value="views_desc"
+                            {% if selected_sort == 'views_desc' %}selected{% endif %}>
+                            Most Viewed
+                        </option>
+                        <option value="views_asc"
+                            {% if selected_sort == 'views_asc' %}selected{% endif %}>
+                            Least Viewed
+                        </option>
+                        <option value="name_asc"
+                            {% if selected_sort == 'name_asc' %}selected{% endif %}>
+                            Movie Name (A-Z)
+                        </option>
+                        <option value="name_desc"
+                            {% if selected_sort == 'name_desc' %}selected{% endif %}>
+                            Movie Name (Z-A)
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="report-card">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th style="background:#0d6efd;color:white;">ID</th>
+                    <th style="background:#0d6efd;color:white;">Thumbnail</th>
+                    <th style="background:#0d6efd;color:white;">Movie Name</th>
+                    <th style="background:#0d6efd;color:white;">Views</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for movie in movies %}
+                <tr>
+                    <td>{{ movie.id }}</td>
+                    <td>
+                        <img
+                            src="{{ movie.thumbnail.url }}"
+                            class="thumb"
+                            alt="{{ movie.name }}">
+                    </td>
+                    <td>{{ movie.name }}</td>
+                    <td>
+                        <strong>{{ movie.views }}</strong>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
